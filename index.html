@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjey Hirwa — Art Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:wght@400;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#12100e;--parchment:#f5f0e4;--warm-mid:#ede6d3;
+  --gold:#c9922a;--gold-light:#e8b84b;--rust:#8b2e12;
+  --charcoal:#2e2a25;--muted:#7a7468;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'Space Mono',monospace;
+  --hand:'Caveat',cursive;
+}
+html{scroll-behavior:smooth}
+body{background:var(--parchment);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");background-size:200px 200px;pointer-events:none;z-index:9998;opacity:.5}
+
+/* ATMOSPHERE BUTTON */
+#atm-btn{position:fixed;bottom:28px;right:32px;z-index:9990;background:var(--ink);color:var(--gold);border:.5px solid #3a3530;font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .3s,color .3s}
+#atm-btn:hover{background:var(--gold);color:var(--ink)}
+#atm-icon{font-size:16px;transition:transform .5s}
+#atm-btn:hover #atm-icon{transform:rotate(30deg)}
+
+/* ATMOSPHERES */
+body.atm-gallery{background:#f5f0e4}
+body.atm-gallery .featured{background:#12100e}
+body.atm-gallery .project-unit{background:#1a160f}
+body.atm-gallery .about{background:#f5f0e4}
+body.atm-gallery .sketchbook{background:#ede6d3}
+
+body.atm-studio{background:#2a1f0f !important;color:#f0e0c0 !important}
+body.atm-studio section,body.atm-studio .project-unit{background:#1e1508 !important}
+body.atm-studio .featured{background:#0e0a04 !important}
+body.atm-studio .about{background:#2a1f0f !important}
+body.atm-studio .sketchbook{background:#241a0a !important}
+body.atm-studio .about p,body.atm-studio .discipline-name,body.atm-studio .theme-block p{color:#c8a870 !important}
+body.atm-studio footer{background:#0e0a04 !important}
+
+body.atm-midnight{background:#090808 !important;color:#c8c0b8 !important}
+body.atm-midnight section,body.atm-midnight .project-unit{background:#0d0b0a !important}
+body.atm-midnight .featured{background:#060504 !important}
+body.atm-midnight .about{background:#0d0b0a !important}
+body.atm-midnight .sketchbook{background:#111008 !important}
+body.atm-midnight .about p,body.atm-midnight .discipline-name,body.atm-midnight .theme-block p{color:#9a9080 !important}
+body.atm-midnight .about h2,body.atm-midnight .sketchbook-intro h2,body.atm-midnight footer h2{color:#e0d8c8 !important}
+body.atm-midnight footer{background:#060504 !important}
+body.atm-midnight .theme-block:hover{background:#1a1814 !important}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden;background:var(--ink)}
+.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);opacity:.3}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.4) contrast(1.1)}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:80px 10vw;gap:60px;animation:heroIn 1.2s ease both}
+@keyframes heroIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.hero-left{flex:1;min-width:0}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.hero-name{font-family:var(--serif);font-size:clamp(52px,9vw,110px);font-weight:300;line-height:.9;color:var(--parchment);letter-spacing:-.02em}
+.hero-name em{font-style:italic;color:var(--gold);display:block}
+.hero-sub{margin-top:28px;max-width:480px;font-size:17px;font-weight:300;color:#b8b2a8;line-height:1.85;font-style:italic}
+
+/* PROFILE SQUARE — right of hero name */
+.profile-sq{width:400px;height:400px;flex-shrink:0;overflow:hidden;border:2px solid var(--gold);position:relative}
+.profile-sq img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:saturate(1.1) contrast(1.05)}
+.profile-sq .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:#706a62;text-align:center;letter-spacing:.1em;text-transform:uppercase;background:#1a1714;line-height:1.6;padding:16px}
+
+/* HERO BOTTOM */
+.hero-scroll{position:relative;z-index:2;padding:34px 10vw;display:flex;gap:40px;align-items:center;border-top:.5px solid rgba(255,255,255,.1)}
+.hero-stat{font-family:var(--mono);font-size:11px;color:#706a62;letter-spacing:.1em;text-transform:uppercase}
+.hero-stat strong{display:block;font-family:var(--serif);font-size:32px;font-weight:400;color:var(--parchment);letter-spacing:-.02em;margin-bottom:2px}
+.nav-links{margin-left:auto;display:flex;gap:24px}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#706a62;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+
+/* SECTION LABEL */
+section{padding:100px 10vw}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:60px;display:flex;align-items:center;gap:16px}
+.section-label::after{content:'';flex:1;max-width:80px;height:.5px;background:var(--gold)}
+
+/* FINAL WORKS — peel-back */
+.featured{background:var(--ink)}
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.work-card{position:relative;overflow:hidden;cursor:pointer;background:#0a0908}
+.work-card.hero-card{grid-column:1/3}
+.work-card img.main-img{width:100%;display:block;object-fit:cover;filter:saturate(1.35) contrast(1.08) brightness(1.03);transition:transform .65s ease,filter .5s ease}
+.work-card.hero-card img.main-img{max-height:68vh;object-fit:cover}
+.work-card:hover img.main-img{transform:scale(1.04);filter:saturate(1.6) contrast(1.13) brightness(1.07)}
+.peel-corner{position:absolute;bottom:0;right:0;width:0;height:0;z-index:10;transition:width .4s ease,height .4s ease;pointer-events:none}
+.work-card:hover .peel-corner{width:100px;height:100px}
+.peel-corner::before{content:'';position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 100px 100px;border-color:transparent transparent #0a0908 transparent}
+.peel-corner::after{content:'PROCESS \2192';position:absolute;bottom:14px;right:8px;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--gold);opacity:0;transition:opacity .3s .2s;white-space:nowrap}
+.work-card:hover .peel-corner::after{opacity:1}
+.peel-peek{position:absolute;bottom:0;right:0;width:96px;height:96px;overflow:hidden;clip-path:polygon(100% 0,100% 100%,0 100%);opacity:0;transition:opacity .35s .1s;z-index:9}
+.work-card:hover .peel-peek{opacity:1}
+.peel-peek img{width:200%;height:200%;object-fit:cover;position:absolute;bottom:0;right:0;filter:saturate(1.2) brightness(.8)}
+.work-caption{position:absolute;bottom:0;left:0;right:0;padding:36px 28px 24px;background:linear-gradient(transparent,rgba(10,9,8,.92));transform:translateY(10px);transition:transform .35s}
+.work-card:hover .work-caption{transform:translateY(0)}
+.work-caption h3{font-family:var(--serif);font-size:26px;font-weight:300;font-style:italic;color:var(--parchment);line-height:1.2}
+.work-caption .meta{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:block;margin-top:6px}
+.work-caption .theme-pill{display:inline-block;margin-top:8px;padding:4px 10px;background:rgba(201,146,42,.15);border:.5px solid rgba(201,146,42,.5);color:var(--gold-light);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+
+/* SPLIT SLIDER */
+.split-view-wrapper{position:relative;overflow:hidden;user-select:none;height:520px;background:var(--ink)}
+.split-view-wrapper img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.split-after{filter:saturate(1.5) contrast(1.1) brightness(1.05)}
+.split-before{filter:saturate(1.1) contrast(1.05) brightness(.95)}
+.split-clip{position:absolute;top:0;right:0;bottom:0;overflow:hidden}
+.split-clip img{left:auto;right:0}
+.split-handle{position:absolute;top:0;bottom:0;width:3px;background:var(--gold);cursor:ew-resize;z-index:20;transform:translateX(-50%)}
+.split-handle::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--gold);border:3px solid var(--parchment);box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.split-handle::after{content:'\25C4 \25BA';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;color:var(--ink);font-weight:700;white-space:nowrap;pointer-events:none}
+.split-label-before,.split-label-after{position:absolute;bottom:20px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;background:rgba(10,9,8,.7);color:var(--gold);pointer-events:none;z-index:15}
+.split-label-before{left:16px}.split-label-after{right:16px}
+
+/* SCULPTURE UNIT */
+.project-unit{background:#1a160f;color:var(--parchment);padding:100px 10vw}
+.project-unit .section-label{color:var(--gold)}
+.project-unit .section-label::after{background:var(--gold)}
+.project-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:80px}
+.project-title{font-family:var(--serif);font-size:clamp(40px,5vw,72px);font-weight:300;font-style:italic;line-height:1;color:var(--parchment);letter-spacing:-.02em}
+.project-title span{color:var(--gold);display:block}
+.project-desc{font-size:16px;font-weight:300;color:#a09880;line-height:1.9}
+.project-desc strong{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.project-final{position:relative;cursor:pointer;margin-bottom:3px;overflow:hidden}
+.project-final img{width:100%;max-height:72vh;object-fit:cover;display:block;filter:saturate(1.4) contrast(1.1) brightness(1.04);transition:transform .65s ease,filter .5s ease}
+.project-final:hover img{transform:scale(1.03);filter:saturate(1.65) contrast(1.15) brightness(1.08)}
+.project-final-badge{position:absolute;top:24px;left:24px;background:var(--gold);color:var(--ink);font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;font-weight:700;z-index:5}
+.project-plan-label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#5a5248;padding:28px 0 20px;border-top:.5px solid #2a2520;margin-top:3px;display:flex;align-items:center;gap:16px}
+.project-plan-label::after{content:'';flex:1;height:.5px;background:#2a2520}
+.project-process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.project-process-grid .plan-page{grid-column:span 2}
+.process-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:#0d0b09}
+.process-card.plan-page{aspect-ratio:4/5}
+.process-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.2) contrast(1.08);transition:transform .5s ease,filter .4s ease}
+.process-card:hover img{transform:scale(1.06);filter:saturate(1.5) contrast(1.13) brightness(1.04)}
+.process-card .proc-label{position:absolute;bottom:0;left:0;right:0;padding:20px 16px 14px;background:linear-gradient(transparent,rgba(10,8,6,.92));opacity:0;transition:opacity .3s}
+.process-card:hover .proc-label{opacity:1}
+.proc-label p{font-family:var(--hand);font-size:16px;color:var(--gold-light);line-height:1.4}
+.proc-label span{font-family:var(--mono);font-size:9px;color:#706a62;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:4px}
+
+/* ABOUT */
+.about{background:var(--parchment)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-profile{display:flex;align-items:center;gap:22px;margin-bottom:36px}
+.about-profile-sq{width:64px;height:64px;overflow:hidden;border:2px solid var(--warm-mid);flex-shrink:0}
+.about-profile-sq img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.about-profile-sq .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--warm-mid);font-family:var(--mono);font-size:8px;color:var(--muted);text-align:center;letter-spacing:.08em;text-transform:uppercase;padding:6px;line-height:1.5}
+.about-profile-name{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--charcoal)}
+.about-profile-role{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.about h2{font-family:var(--serif);font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.08;letter-spacing:-.02em;margin-bottom:28px}
+.about h2 em{font-style:italic;color:var(--rust)}
+.about p{font-size:16px;font-weight:300;color:var(--charcoal);line-height:1.9;margin-bottom:18px}
+.theme-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:6px 12px;border:.5px solid var(--charcoal);color:var(--charcoal);transition:background .2s,color .2s;cursor:default}
+.tag:hover{background:var(--charcoal);color:var(--parchment)}
+.about-right{display:flex;flex-direction:column}
+.discipline-item{padding:22px 0;border-bottom:.5px solid var(--warm-mid);display:flex;align-items:baseline;gap:20px}
+.discipline-num{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:24px}
+.discipline-name{font-family:var(--serif);font-size:20px;font-weight:400;font-style:italic}
+.discipline-desc{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto;text-align:right;max-width:160px;line-height:1.5}
+
+/* SKETCHBOOK */
+.sketchbook{background:var(--warm-mid)}
+.sketchbook-intro{max-width:600px;margin-bottom:64px}
+.sketchbook-intro h2{font-family:var(--serif);font-size:52px;font-weight:300;font-style:italic;margin-bottom:16px}
+.sketchbook-intro p{font-size:16px;font-weight:300;color:var(--charcoal);line-height:1.85}
+.sketchbook-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sketch-item{position:relative;overflow:hidden;background:var(--ink);aspect-ratio:3/4;cursor:pointer;opacity:0;transform:rotateY(-40deg) translateX(-20px);transform-origin:left center}
+.sketch-item.flip-visible{animation:flipIn .6s ease both}
+@keyframes flipIn{from{opacity:0;transform:rotateY(-40deg) translateX(-20px)}to{opacity:1;transform:rotateY(0) translateX(0)}}
+.sketch-item img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.2) contrast(1.08) brightness(.95);transition:transform .5s ease,filter .35s ease}
+.sketch-item:hover img{transform:scale(1.06);filter:saturate(1.5) contrast(1.12) brightness(1.04)}
+.sketch-label{position:absolute;bottom:0;left:0;right:0;padding:20px 14px 14px;background:linear-gradient(transparent,rgba(15,13,11,.88));opacity:0;transition:opacity .3s}
+.sketch-item:hover .sketch-label{opacity:1}
+.sketch-label p{font-family:var(--hand);font-size:16px;color:var(--gold-light);line-height:1.4}
+.sketch-label span{font-family:var(--mono);font-size:9px;color:#9a9080;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:3px}
+
+/* THEMES */
+.themes{background:var(--parchment)}
+.themes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:.5px solid var(--warm-mid)}
+.theme-block{padding:48px 36px;border-right:.5px solid var(--warm-mid);border-bottom:.5px solid var(--warm-mid);transition:background .3s}
+.theme-block:hover{background:var(--warm-mid)}
+.theme-block:nth-child(3n){border-right:none}
+.theme-num{font-family:var(--mono);font-size:52px;font-weight:700;color:var(--warm-mid);line-height:1;margin-bottom:20px;transition:color .3s}
+.theme-block:hover .theme-num{color:var(--gold)}
+.theme-block h3{font-family:var(--serif);font-size:24px;font-weight:400;font-style:italic;margin-bottom:12px;color:var(--ink)}
+.theme-block p{font-size:15px;font-weight:300;color:var(--charcoal);line-height:1.85}
+
+/* STRIP */
+.gallery-strip{background:var(--ink);padding:3px 0;overflow:hidden}
+.strip-row{display:flex;gap:3px;animation:slide 32s linear infinite}
+.strip-row:nth-child(2){animation-direction:reverse;animation-duration:42s;margin-top:3px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip-img{width:180px;height:130px;object-fit:cover;flex-shrink:0;display:block;filter:brightness(.65) saturate(1.1);transition:filter .3s}
+.strip-img:hover{filter:brightness(1.05) saturate(1.55)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:80px 10vw;display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:40px}
+footer h2{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:300;font-style:italic;color:var(--parchment);line-height:1.1}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#706a62;line-height:2;text-transform:uppercase}
+
+/* LIGHTBOX — full zoom/pan */
+.lightbox{position:fixed;inset:0;background:rgba(8,7,6,.97);z-index:10000;display:none;align-items:stretch}
+.lightbox.open{display:flex}
+.lb-img-pane{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:60px 40px;overflow:hidden}
+#lb-zoom-wrap{position:relative;transform-origin:center center;transition:transform .2s ease;cursor:grab;display:flex;align-items:center;justify-content:center}
+#lb-zoom-wrap.grabbing{cursor:grabbing}
+#lb-img{max-width:100%;max-height:82vh;object-fit:contain;display:block;filter:saturate(1.35) contrast(1.08);pointer-events:none;user-select:none}
+.lb-zoom-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.lb-zoom-btn{background:rgba(201,146,42,.15);border:.5px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:16px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-zoom-btn:hover{background:var(--gold);color:var(--ink)}
+#lb-zoom-hint{position:absolute;top:16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#5a5248;white-space:nowrap;pointer-events:none}
+.lb-close{position:absolute;top:24px;right:28px;font-family:var(--mono);font-size:11px;color:#5a5248;cursor:pointer;letter-spacing:.12em;text-transform:uppercase;background:none;border:none;transition:color .2s;z-index:20}
+.lb-close:hover{color:var(--parchment)}
+.lb-info-pane{width:360px;flex-shrink:0;background:#0f0d0b;border-left:.5px solid #2a2520;padding:60px 36px;overflow-y:auto;display:flex;flex-direction:column}
+.lb-unit-badge{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.lb-title{font-family:var(--serif);font-size:36px;font-weight:300;font-style:italic;color:var(--parchment);line-height:1.15;margin-bottom:6px}
+.lb-date{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#5a5248;margin-bottom:24px}
+.lb-divider{height:.5px;background:#2a2520;margin:20px 0}
+.lb-medium{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.lb-annotation{font-family:var(--hand);font-size:20px;color:#c8c0b0;line-height:1.75;flex:1}
+.lb-theme-row{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}
+.lb-theme-chip{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:.5px solid #3a3530;color:#706a62}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.lb-info-pane{width:300px}}
+@media(max-width:900px){
+  .hero-content{flex-direction:column-reverse;align-items:flex-start;gap:32px;padding:60px 6vw}
+  .profile-sq{width:160px;height:160px}
+  section{padding:60px 6vw}
+  .project-unit{padding:60px 6vw}
+  .featured-grid{grid-template-columns:1fr}
+  .work-card.hero-card{grid-column:1}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .sketchbook-grid{grid-template-columns:repeat(2,1fr)}
+  .themes-grid{grid-template-columns:1fr}
+  .theme-block{border-right:none}
+  footer{grid-template-columns:1fr}
+  .project-header{grid-template-columns:1fr;gap:32px}
+  .project-process-grid{grid-template-columns:repeat(2,1fr)}
+  .project-process-grid .plan-page{grid-column:span 2}
+  .lightbox{flex-direction:column}
+  .lb-info-pane{width:100%;border-left:none;border-top:.5px solid #2a2520;max-height:45vh}
+  .lb-img-pane{max-height:55vh;padding:30px 20px}
+  .split-view-wrapper{height:300px}
+}
+@media(max-width:600px){
+  .sketchbook-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .project-process-grid{grid-template-columns:1fr 1fr}
+}
+/* ===================================================== */
+/* ADD THIS CSS INSIDE YOUR EXISTING <style> */
+/* ===================================================== */
+
+.portal-section{
+  background:var(--parchment);
+
+  padding:120px 10vw;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:40px;
+}
+
+.portal-card{
+  background:#e8e2d4;
+
+  overflow:hidden;
+
+  border:1px solid rgba(0,0,0,0.06);
+
+  transition:0.4s ease;
+}
+
+.portal-card:hover{
+  transform:translateY(-8px);
+}
+
+.portal-image{
+  height:320px;
+
+  overflow:hidden;
+}
+
+.portal-image img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  transition:0.6s ease;
+}
+
+.portal-card:hover .portal-image img{
+  transform:scale(1.05);
+}
+
+.portal-content{
+  padding:40px;
+}
+
+.portal-label{
+  font-family:var(--mono);
+
+  font-size:10px;
+
+  letter-spacing:0.16em;
+
+  text-transform:uppercase;
+
+  color:var(--gold);
+
+  margin-bottom:18px;
+}
+
+.portal-content h2{
+  font-size:48px;
+  line-height:0.95;
+  font-weight:300;
+
+  margin-bottom:22px;
+}
+
+.portal-content h2 em{
+  color:var(--rust);
+  font-style:italic;
+}
+
+.portal-content p{
+  font-size:18px;
+  line-height:1.9;
+
+  color:var(--charcoal);
+
+  margin-bottom:34px;
+}
+
+.portal-btn{
+  display:inline-block;
+
+  padding:14px 26px;
+
+  border:1px solid rgba(184,137,42,0.6);
+
+  color:var(--gold);
+
+  text-decoration:none;
+
+  font-family:var(--mono);
+
+  font-size:10px;
+
+  letter-spacing:0.16em;
+
+  text-transform:uppercase;
+
+  transition:0.3s ease;
+}
+
+.portal-btn:hover{
+  background:var(--gold);
+  color:var(--ink);
+}
+
+@media(max-width:900px){
+
+  .portal-section{
+    grid-template-columns:1fr;
+  }
+
+}
+/* BOTTOM PAGE BUTTONS */
+
+.bottom-page-nav{
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:22px;
+
+  padding:70px 0 40px;
+
+  flex-wrap:wrap;
+
+  background:var(--parchment);
+}
+
+.bottom-nav-btn{
+  padding:15px 30px;
+
+  border:1px solid rgba(201,146,42,.5);
+
+  color:var(--gold);
+
+  text-decoration:none;
+
+  font-family:var(--mono);
+
+  font-size:10px;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  transition:.3s ease;
+
+  background:transparent;
+}
+
+.bottom-nav-btn:hover{
+  background:var(--gold);
+
+  color:var(--ink);
+
+  transform:translateY(-3px);
+}
+</style>
+</head>
+<body class="atm-gallery">
+
+<button id="atm-btn" onclick="cycleAtmosphere()" title="Change gallery atmosphere">
+  <span id="atm-icon">&#x1F5BC;</span>
+  <span id="atm-label">Gallery</span>
+</button>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="images/01_eagle.jpg" alt=""><img src="images/03_eye.jpg" alt=""><img src="images/02_leaf.jpg" alt="">
+    <img src="images/06_sculpture.jpg" alt=""><img src="images/11_sketchbook_linocut.jpg" alt=""><img src="images/17_sketchbook_eye.jpg" alt="">
+  </div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Art Portfolio &middot; 2024&ndash;2025</p>
+      <h1 class="hero-name">Adjey<em>Hirwa</em></h1>
+      <p class="hero-sub">Exploring the weight of existence &mdash; through paint, clay, print, and collage &mdash; in pursuit of beauty, burden, and the grace between them.</p>
+    </div>
+    <div class="profile-sq">
+      <img src="images/profile.jpg" alt="Adjey Hirwa"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="ph" style="display:none">Add<br>profile.jpg</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-stat"><strong>16</strong>Works</div>
+    <div class="hero-stat"><strong>5</strong>Disciplines</div>
+    <div class="hero-stat"><strong>3</strong>Themes</div>
+    <nav class="nav-links">
+      <a href="#works">Final Works</a><a href="#sculpture">Sculpture</a>
+      <a href="#sketchbook">Sketchbook</a><a href="#themes">Themes</a>
+    </nav>
+  </div>
+</header>
+
+<!-- FINAL WORKS -->
+<section class="featured" id="works">
+  <p class="section-label" style="color:var(--gold)">Final Works &mdash; Selected Pieces</p>
+  <div class="featured-grid">
+    <div class="work-card hero-card" onclick="openWork('leaf')">
+      <img class="main-img" src="images/02_leaf.jpg" alt="Leaf of Worlds">
+      <div class="peel-peek"><img src="images/09_sketchbook_tree.jpg" alt=""></div>
+      <div class="peel-corner"></div>
+      <div class="work-caption">
+        <h3>Leaf of Worlds</h3>
+        <span class="meta">Acrylic on board &middot; Mixed Media &middot; 2026</span>
+        <span class="theme-pill">Nature &amp; the World</span>
+      </div>
+    </div>
+    <div class="work-card" onclick="openWork('eagle')">
+      <img class="main-img" src="images/01_eagle.jpg" alt="The Eagle, Spread">
+      <div class="peel-peek"><img src="images/07_sketchbook_birds.jpg" alt=""></div>
+      <div class="peel-corner"></div>
+      <div class="work-caption">
+        <h3>The Eagle, Spread</h3>
+        <span class="meta">Ink &amp; paint on raw canvas &middot; 2024</span>
+        <span class="theme-pill">Nature &amp; Instinct</span>
+      </div>
+    </div>
+    <div class="work-card" onclick="openWork('eye')">
+      <img class="main-img" src="images/03_eye.jpg" alt="The Watching Eye">
+      <div class="peel-peek"><img src="images/17_sketchbook_eye.jpg" alt=""></div>
+      <div class="peel-corner"></div>
+      <div class="work-caption">
+        <h3>The Watching Eye</h3>
+        <span class="meta">Mixed Media &middot; Woven basket frame &middot; 2025</span>
+        <span class="theme-pill">The Eye as Witness</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT SLIDER -->
+<div class="split-view-wrapper" id="split-view" title="Drag to compare process &amp; final">
+  <img class="split-after"  src="images/03_eye.JPG" alt="Eagle process">
+  <div class="split-clip" id="split-clip" style="width:45%">
+    <img class="split-before" src="images/01_eagle.jpg" alt="Eagle final">
+  </div>
+  <div class="split-handle" id="split-handle" style="left:55%"></div>
+  <div class="split-label-before">The Watching Eye</div>
+  <div class="split-label-after">The Eagle, Spread</div>
+</div>
+
+<!-- SCULPTURE UNIT -->
+<section class="project-unit" id="sculpture">
+  <p class="section-label">Sculpture Unit &middot; 2025</p>
+  <div class="project-header">
+    <div><h2 class="project-title">Salvation<span>&amp; Burden</span></h2></div>
+    <div class="project-desc">
+      <strong>About this Unit</strong>
+      A sustained enquiry into what it means to carry something &mdash; physically, emotionally, spiritually. Developed across sketchbook research into Michelangelo and Jeff Koons, the project culminates in a papier-m&acirc;ch&eacute; and modrock sculpture of a human figure chained to a rock-like burden. Click any image to read full notes.
+    </div>
+  </div>
+  <div class="project-final" onclick="openWork('sculpture')">
+    <span class="project-final-badge">Final Piece</span>
+    <img src="images/06_sculpture.jpg" alt="Salvation and Burden">
+    <div class="work-caption">
+      <h3>Salvation &amp; Burden</h3>
+      <span class="meta">Papier-m&acirc;ch&eacute; &middot; Modrock &middot; Paint &middot; 2025</span>
+      <span class="theme-pill">Sculpture</span>
+    </div>
+  </div>
+  <div class="project-plan-label">Process, Research &amp; Development</div>
+  <div class="project-process-grid">
+    <div class="process-card plan-page" onclick="openWork('plan')">
+      <img src="images/12_sketchbook_prayer.jpg" alt="Concept Plan">
+      <div class="proc-label"><p>The Final Plan &mdash; Concept Sketch</p><span>Power of Prayer &middot; Salvation &amp; Grace</span></div>
+    </div>
+    <div class="process-card" onclick="openWork('rock')">
+      <img src="images/13_sketchbook_rock.jpg" alt="The Rock">
+      <div class="proc-label"><p>The Rock &mdash; Symbolism</p><span>Value studies &middot; Burden</span></div>
+    </div>
+    <div class="process-card" onclick="openWork('door')">
+      <img src="images/14_sketchbook_dev.jpg" alt="The Door">
+      <div class="proc-label"><p>Development &mdash; The Door</p><span>Salvation as gateway</span></div>
+    </div>
+    <div class="process-card" onclick="openWork('sculpt_research')">
+      <img src="images/15_sketchbook_sculpture.jpg" alt="Sculpture Research">
+      <div class="proc-label"><p>Research &mdash; Piet&agrave; &amp; Koons</p><span>Michelangelo &middot; Jeff Koons</span></div>
+    </div>
+    <div class="process-card" onclick="openWork('koons')">
+      <img src="images/16_sketchbook_koons.jpg" alt="Jeff Koons Study">
+      <div class="proc-label"><p>Jeff Koons &middot; Artist Study</p><span>Salvation &amp; Burden overview</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="about-profile">
+        <div class="about-profile-sq">
+          <img src="images/profile.jpg" alt="Adjey Hirwa"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="ph" style="display:none">add profile</div>
+        </div>
+        <div>
+          <div class="about-profile-name">Adjey Hirwa</div>
+          <div class="about-profile-role">Visual Artist &middot; 2024&ndash;2026</div>
+        </div>
+      </div>
+      <p class="section-label">About the Artist</p>
+      <h2>A mind that <em>sees</em> through making</h2>
+      <p>Born in Rwanda in December 2009, I see art as a quiet conversation between the soul and the natural world. The hills, the skies, the trees, and the silence within them inspire the way I create. Nature carries a kind of peace that words often cannot hold, and through my art, I try to express that feeling.</p>
+      <p>Every piece is a fragment of calm, a moment of stillness, and a reminder of the beauty that exists in both the world around us and within us.
+“He makes me lie down in green pastures,
+He leads me beside quiet waters,
+He refreshes my soul.” — Psalm 23:2–3</p>
+      <p>This sketchbook is my inner artist&rsquo;s journey, from knowing nothing to knowing that there is more than one way to look at things: My art journey is a space of research, failure, discovery, and development that drives each final piece.</p>
+      <div class="theme-tags">
+        <span class="tag">Salvation &amp; Burden</span><span class="tag">Freedom</span>
+        <span class="tag">The Eye</span><span class="tag">Nature</span>
+        <span class="tag">Mixed Media</span><span class="tag">Printmaking</span>
+      </div>
+    </div>
+    <div class="about-right">
+      <p class="section-label">Disciplines</p>
+      <div class="discipline-item"><span class="discipline-num">01</span><span class="discipline-name">Painting &amp; Mixed Media</span><span class="discipline-desc">Canvas, fabric, collage, oil pastel</span></div>
+      <div class="discipline-item"><span class="discipline-num">02</span><span class="discipline-name">Sculpture</span><span class="discipline-desc">Papier-m&acirc;ch&eacute;, modrock, found objects</span></div>
+      <div class="discipline-item"><span class="discipline-num">03</span><span class="discipline-name">Printmaking</span><span class="discipline-desc">Lino-cut, styrofoam print, mono-print</span></div>
+      <div class="discipline-item"><span class="discipline-num">04</span><span class="discipline-name">Collage</span><span class="discipline-desc">Newspaper, playing cards, fabric, photo</span></div>
+      <div class="discipline-item"><span class="discipline-num">05</span><span class="discipline-name">Drawing &amp; Sketchbook</span><span class="discipline-desc">Charcoal, ink, pencil, chalk, oil pastel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKETCHBOOK -->
+<section class="sketchbook" id="sketchbook">
+  <div class="sketchbook-intro">
+    <p class="section-label">Process &amp; Development</p>
+    <h2>The Sketchbook</h2>
+    <p>Where every idea is born, tested, and transformed. Pages flip in as you scroll &mdash; each one a window into the thinking behind the work.</p>
+  </div>
+  <div class="sketchbook-grid" id="sketchGrid">
+    <div class="sketch-item" onclick="openWork('birds')"><img src="images/007_sketchbook_birds.jpg" alt="Birds"><div class="sketch-label"><p>Birds &amp; Tree &middot; Mixed Media</p><span>Line, colour, texture study</span></div></div>
+    <div class="sketch-item" onclick="openWork('cat')"><img src="images/08_sketchbook_cat.jpg" alt="Cat"><div class="sketch-label"><p>Cat on Building &middot; Oil Pastel</p><span>Emphasis &middot; Contrast &middot; Movement</span></div></div>
+    <div class="sketch-item" onclick="openWork('tree')"><img src="images/09_sketchbook_tree.jpg" alt="Tree"><div class="sketch-label"><p>Tree &middot; Development Page</p><span>Value, space, collage &amp; fabric</span></div></div>
+    <div class="sketch-item" onclick="openWork('rauschenberg')"><img src="images/10_sketchbook_rauschenberg.jpg" alt="Rauschenberg"><div class="sketch-label"><p>Robert Rauschenberg Study</p><span>Retroactive (1964) &middot; Layering</span></div></div>
+    <div class="sketch-item" onclick="openWork('linocut')"><img src="images/11_sketchbook_linocut.jpg" alt="Linocut"><div class="sketch-label"><p>Lino-Cut &middot; Freedom Series</p><span>Hand &middot; Hope &middot; Free</span></div></div>
+    <div class="sketch-item" onclick="openWork('eye1')"><img src="images/17_sketchbook_eye.jpg" alt="Eye1"><div class="sketch-label"><p>Eye Theme &middot; Development</p><span>Glitter pupil &middot; Tissue depth</span></div></div>
+    <div class="sketch-item" onclick="openWork('eye2')"><img src="images/18_sketchbook_eye2.jpg" alt="Eye2"><div class="sketch-label"><p>Eye Theme &middot; Artist Research</p><span>Value &middot; Balance &middot; Scale</span></div></div>
+     <div class="sketch-item" onclick="openWork('artwork')"><img src="images/19_.JPG" alt="Eye2"><div class="sketch-label"><p>Freedom and constraint Theme &middot; Artist Research</p><span>Value &middot; Balance &middot; Scale</span></div></div>
+      <div class="sketch-item" onclick="openWork('artwork2')"><img src="images/20_.JPG" alt="Eye2"><div class="sketch-label"><p>Nature Theme &middot; Artist Research</p><span>Value &middot; Balance &middot; Scale</span></div></div>
+      <div class="sketch-item" onclick="openWork('artwork3')"><img src="images/07_sketchbook_birds.JPG" alt="Eye2"><div class="sketch-label"><p>Eye Theme &middot; Artist Research</p><span>Value &middot; Balance &middot; Scale</span></div></div>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes" id="themes">
+  <p class="section-label">Conceptual Threads</p>
+  <div class="themes-grid">
+    <div class="theme-block"><div class="theme-num">01</div><h3>Salvation &amp; Burden</h3><p>The central project. A meditation on the weight we carry &mdash; seen in the rock, the chain, the hunched figure &mdash; and the possibility of grace. Informed by Michelangelo and Jeff Koons. Expressed through sculpture.</p></div>
+    <div class="theme-block"><div class="theme-num">02</div><h3>Freedom &amp; Constraint</h3><p>Explored through the lino-cut series. The hand &mdash; open or clenched &mdash; becomes a symbol of the struggle between liberation and control. &ldquo;HOPE&rdquo; and &ldquo;FREE&rdquo; interrogate language as form and content simultaneously.</p></div>
+    <div class="theme-block"><div class="theme-num">03</div><h3>The Eye as Witness</h3><p>A recurring image: the eye that watches and sees. Large-format mixed media pieces explore the pupil as a window &mdash; to the self, to the world, to the divine. Textile and tissue amplify craft and vulnerability.</p></div>
+    <div class="theme-block"><div class="theme-num">04</div><h3>Nature &amp; the World</h3><p>The leaf as a microcosm. The tree as structure and metaphor. African fabric, lush greens, and mountains appear in compositions asking how beauty persists across every season.</p></div>
+    <div class="theme-block"><div class="theme-num">05</div><h3>Memory &amp; Place</h3><p>Collaged city skylines, newspaper fragments, and playing-card borders layer the personal with the cultural. Works that hold the tension between where we are and where we come from.</p></div>
+    <div class="theme-block"><div class="theme-num">06</div><h3>Process as Practice</h3><p>The sketchbook is inseparable from the finished work. Failures are documented, materials tested, and reflections written. Art-making here is understood as thinking &mdash; iterative, curious, and unafraid.</p></div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <div class="strip-row">
+    <img class="strip-img" src="images/01_eagle.jpg" alt=""><img class="strip-img" src="images/02_leaf.jpg" alt=""><img class="strip-img" src="images/03_eye.jpg" alt=""><img class="strip-img" src="images/06_sculpture.jpg" alt=""><img class="strip-img" src="images/07_sketchbook_birds.jpg" alt=""><img class="strip-img" src="images/08_sketchbook_cat.jpg" alt=""><img class="strip-img" src="images/09_sketchbook_tree.jpg" alt=""><img class="strip-img" src="images/11_sketchbook_linocut.jpg" alt=""><img class="strip-img" src="images/17_sketchbook_eye.jpg" alt="">
+    <img class="strip-img" src="images/01_eagle.jpg" alt=""><img class="strip-img" src="images/02_leaf.jpg" alt=""><img class="strip-img" src="images/03_eye.jpg" alt=""><img class="strip-img" src="images/06_sculpture.jpg" alt=""><img class="strip-img" src="images/07_sketchbook_birds.jpg" alt=""><img class="strip-img" src="images/08_sketchbook_cat.jpg" alt=""><img class="strip-img" src="images/09_sketchbook_tree.jpg" alt=""><img class="strip-img" src="images/11_sketchbook_linocut.jpg" alt=""><img class="strip-img" src="images/17_sketchbook_eye.jpg" alt="">
+  </div>
+  <div class="strip-row">
+    <img class="strip-img" src="images/10_sketchbook_rauschenberg.jpg" alt=""><img class="strip-img" src="images/12_sketchbook_prayer.jpg" alt=""><img class="strip-img" src="images/13_sketchbook_rock.jpg" alt=""><img class="strip-img" src="images/14_sketchbook_dev.jpg" alt=""><img class="strip-img" src="images/15_sketchbook_sculpture.jpg" alt=""><img class="strip-img" src="images/16_sketchbook_koons.jpg" alt=""><img class="strip-img" src="images/18_sketchbook_eye2.jpg" alt=""><img class="strip-img" src="images/06_sculpture.jpg" alt=""><img class="strip-img" src="images/02_leaf.jpg" alt="">
+    <img class="strip-img" src="images/10_sketchbook_rauschenberg.jpg" alt=""><img class="strip-img" src="images/12_sketchbook_prayer.jpg" alt=""><img class="strip-img" src="images/13_sketchbook_rock.jpg" alt=""><img class="strip-img" src="images/14_sketchbook_dev.jpg" alt=""><img class="strip-img" src="images/15_sketchbook_sculpture.jpg" alt=""><img class="strip-img" src="images/16_sketchbook_koons.jpg" alt=""><img class="strip-img" src="images/18_sketchbook_eye2.jpg" alt=""><img class="strip-img" src="images/06_sculpture.jpg" alt=""><img class="strip-img" src="images/02_leaf.jpg" alt="">
+  </div>
+</div>
+
+<footer>
+  <div><h2>Adjey Hirwa<br>Art Portfolio</h2></div>
+  <div><p>Disciplines<br>Painting &middot; Sculpture &middot; Printmaking<br>Collage &middot; Drawing<br><br>Themes<br>Salvation &amp; Burden &middot; Freedom<br>The Eye &middot; Nature &middot; Place<br><br>2024 &ndash; 2026</p></div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-img-pane">
+    <button class="lb-close" onclick="closeLightbox()">Close &times;</button>
+    <div id="lb-zoom-hint">Scroll or pinch to zoom &middot; Drag to pan</div>
+    <div id="lb-zoom-wrap"><img id="lb-img" src="" alt=""></div>
+    <div class="lb-zoom-controls">
+      <button class="lb-zoom-btn" onclick="zoomBy(-0.3)" title="Zoom out">&minus;</button>
+      <button class="lb-zoom-btn" onclick="zoomReset()" title="Reset">&#8857;</button>
+      <button class="lb-zoom-btn" onclick="zoomBy(0.3)" title="Zoom in">+</button>
+    </div>
+  </div>
+  <div class="lb-info-pane">
+    <div id="lb-unit" class="lb-unit-badge"></div>
+    <div id="lb-title" class="lb-title"></div>
+    <div id="lb-date" class="lb-date"></div>
+    <div class="lb-divider"></div>
+    <div id="lb-medium" class="lb-medium"></div>
+    <div id="lb-annotation" class="lb-annotation"></div>
+    <div id="lb-themes" class="lb-theme-row"></div>
+  </div>
+</div>
+<!-- BOTTOM PAGE NAVIGATION -->
+<div class="bottom-page-nav">
+
+  <a href="contact.html" class="bottom-nav-btn">
+    Contact Page
+  </a>
+
+  <a href="image.html" class="bottom-nav-btn">
+    Visual Fragments
+  </a>
+</div>
+<script>
+const WORKS = {
+  leaf:{title:'Leaf of Worlds',date:'2025',unit:'Final Work',medium:'Acrylic on board \u00b7 Mixed Media \u00b7 Collage',img:'images/02_leaf.jpg',themes:['Nature & the World','Beauty in Every Season'],annotation:'The leaf shape contains entire worlds within its veins \u2014 each section a different landscape, season, or ecosystem. I used African fabric patterns, acrylic, and oil pastel to show how nature holds both wildness and structure. The brown central stem divides the composition while unifying it, like a spine. I wanted the viewer to feel the weight of everything a single leaf can hold.'},
+  eagle:{title:'The Eagle, Spread',date:'2024',unit:'Final Work',medium:'Ink & paint on raw canvas',img:'images/01_eagle.jpg',themes:['Nature & Instinct','Power','Freedom'],annotation:'The eagle is painted directly onto unprimed canvas using ink and acrylic. The raw fabric ground gives the feathers an earthy, breathing quality \u2014 as if the bird is emerging from the material itself. I used gestural brushwork to capture movement without overworking the surface. The subtle rust and gold marks in the background were made with tea and diluted pigment, giving a sense of age and history.'},
+  eye:{title:'The Watching Eye',date:'2025',unit:'Final Work',medium:'Mixed Media \u00b7 Paint on fabric \u00b7 Woven basket frame \u00b7 African print fabric',img:'images/03_eye.jpg',themes:['The Eye as Witness','Salvation & Burden','Faith'],annotation:'The eye is painted on black fabric mounted onto a woven basket mat. Inside the pupil is a scene of three crosses at sunset \u2014 a direct reference to Calvary and the theme of salvation. The iris is ringed with African print fabric, connecting personal identity with spiritual witness. The lash-like fringes of cut rubber below the eye make it feel alive, almost dangerous \u2014 an eye that does not simply observe but judges.'},
+  sculpture:{title:'Salvation & Burden',date:'2025',unit:'Sculpture Unit \u00b7 Final Piece',medium:'Papier-m\u00e2ch\u00e9 \u00b7 Modrock \u00b7 Wire armature \u00b7 Acrylic paint',img:'images/06_sculpture.jpg',themes:['Salvation & Burden','Faith','The Weight We Carry'],annotation:'A kneeling human figure embraces a large black sphere \u2014 a bomb, a burden, a world. The figure is terracotta-coloured, warm and vulnerable; the sphere cold and threatening. I built the figure from a wire skeleton covered in papier-m\u00e2ch\u00e9, then modrock for detail and rigidity. The texture left by the modrock bandages gives the skin a sense of scarring or marking. The pose \u2014 arms wrapped around the weight \u2014 asks: is this figure clinging out of love, fear, or the inability to let go?'},
+  plan:{title:'Concept Plan \u2014 Power of Prayer',date:'2024\u20132025',unit:'Sculpture Unit \u00b7 Development',medium:'Pencil sketch \u00b7 Notes \u00b7 Sketchbook',img:'images/12_sketchbook_prayer.jpg',themes:['Salvation & Burden','Planning','Prayer & Grace'],annotation:'This is the to-do list and final concept plan for the sculpture unit. The theme name at the top \u2014 \u201cPower of Prayer / Salvation & Grace\u201d \u2014 anchors all the development. The numbered steps show the construction sequence: build the exoskeleton in modrock, make the balls for the head and rock, add chain detail, paint, then write burdens on scrolls. The pencil sketch shows the ball-and-chain composition from which the final sculpture evolved.'},
+  rock:{title:'The Rock \u2014 Symbolism Research',date:'2024\u20132025',unit:'Sculpture Unit \u00b7 Research',medium:'Mixed media sketchbook page \u00b7 Pencil \u00b7 Photos \u00b7 Watercolour',img:'images/13_sketchbook_rock.jpg',themes:['Salvation & Burden','Symbolism','Weight'],annotation:'The rock symbolises burdens people carry \u2014 known or unknown. I studied the value of grey on black, noting that grey adds both balance and movement. Silver is lonely \u2014 it reflects the world rather than absorbing it, because if you are filled with burden you cannot be filled with life. The cotton adds texture bringing more emphasis to the top. The figure hanging from a cliff with a rock tied to its leg shows how burdens can be deadly.'},
+  door:{title:'The Door \u2014 Development',date:'2024\u20132025',unit:'Sculpture Unit \u00b7 Development',medium:'Mixed media sketchbook page \u00b7 Photos \u00b7 Paint \u00b7 Notes',img:'images/14_sketchbook_dev.jpg',themes:['Salvation & Burden','Faith','Development'],annotation:'This page explores \u201cThe Door\u201d as a concept \u2014 symbolising how God is our gateway to heaven. The human figure with chains represents struggles and burdens; the cracks in the floor add pattern and show the strain of carrying weight. The cross in the landscape gives it a grounded feeling. The bright cross and dark green spots create balance and unity. A key development step before finalising the sculpture concept.'},
+  sculpt_research:{title:'Sculpture Research \u2014 Piet\u00e0 & Koons',date:'2024\u20132025',unit:'Sculpture Unit \u00b7 Artist Research',medium:'Sketchbook \u00b7 Print collage \u00b7 Pencil drawing \u00b7 Oil pastel',img:'images/15_sketchbook_sculpture.jpg',themes:['Salvation & Burden','Artist Research','Michelangelo \u00b7 Jeff Koons'],annotation:"I studied two very different sculptors: Michelangelo\u2019s Piet\u00e0 (1498\u20131500) for its emotional use of value and line in depicting grief and grace, and Jeff Koons\u2019s Balloon Dog Orange (1994\u20132000) for its playful use of surface, reflection, and colour. I noticed Koons\u2019s orange is actually a mix of red and orange, not orange alone. I will try to use this technique to show salvation."},
+  koons:{title:'Jeff Koons Study \u2014 Project Overview',date:'2024\u20132025',unit:'Sculpture Unit \u00b7 Artist Study',medium:'Sketchbook \u00b7 Collage \u00b7 Print \u00b7 Notes',img:'images/16_sketchbook_koons.jpg',themes:['Salvation & Burden','Jeff Koons','Michelangelo','Project Overview'],annotation:"In Koons\u2019s Puppy (1992) he used fabric flowers to create texture. I tried to recreate that illusion using paint \u2014 a variety of colours to show texture and shape. I used clay to form the shape of a dog\u2019s head. This page also contains the project overview slide, showing the theme \u201cSalvation & Burden\u201d and the two artist influences: Michelangelo Buonarroti and Jeff Koons."},
+  birds:{title:'Birds & Tree \u2014 Mixed Media Analysis',date:'2024\u20132025',unit:'Sketchbook \u00b7 Process',medium:'Collage \u00b7 Newspaper \u00b7 Ink drawing \u00b7 Photo',img:'images/07_sketchbook_birds.jpg',themes:['Nature','Process as Practice','Mixed Media'],annotation:'This mixed media artwork uses strong line work to outline the building and cat, giving structure and definition. Bright, warm colour in the sky contrasts with the cooler tones in the lower image, adding intensity and mood. There is a clear use of value, with darker shading creating depth against the lighter background. The collage elements add texture, especially with the rough, burned or torn paper edges and layered materials.'},
+  cat:{title:'Cat on Building \u2014 Oil Pastel Study',date:'2024\u20132025',unit:'Sketchbook \u00b7 Process',medium:'Oil pastel \u00b7 Chalk \u00b7 Collage \u00b7 Photo \u00b7 Ink outline',img:'images/08_sketchbook_cat.jpg',themes:['Nature','Cats & Beauty','Emphasis \u00b7 Contrast'],annotation:'This was a practice page before making the top version \u2014 seeing how it would develop. The black outline makes the building pop more, giving it form. Oil pastel creates warmth in the sky. Chalk was added to give a deep burn effect. Strong emphasis on the central cat figure. Contrast shown through colour and size. Movement as the viewer\u2019s eye is drawn upward. Cats are everywhere \u2014 seeing how nature changes and develops, always seeing its beauty.'},
+  tree:{title:'Tree \u2014 Development Page',date:'2024\u20132025',unit:'Sketchbook \u00b7 Process',medium:'Charcoal \u00b7 Newspaper collage \u00b7 African fabric \u00b7 Chalk',img:'images/09_sketchbook_tree.jpg',themes:['Nature','Beauty in Every Season','Development'],annotation:'The value shifts from light to dark \u2014 the left side in shadow, the right uses fabric and collage to bring life. Chalk and erase give depth and form to the leaves. The left side forms a heart shape made by the branch \u2014 showing natural love. This symbolises beauty found in every season of nature: beauty is there even when it changes, so appreciate it in the moment.'},
+  rauschenberg:{title:'Robert Rauschenberg \u2014 Mixed Media Study',date:'2024\u20132025',unit:'Sketchbook \u00b7 Artist Research',medium:'Collage \u00b7 Watercolour \u00b7 Paint \u00b7 Magazine cutouts',img:'images/10_sketchbook_rauschenberg.jpg',themes:['Mixed Media','Artist Research','Retroactive'],annotation:'Study on Robert Rauschenberg\u2019s artwork \u201cRetroactive\u201d (1964). Layered blue paint to create the same effect \u2014 focus on good spacing and shape. The collage includes a landscape, portrait figures, and parachute imagery, mixing the political and personal as Rauschenberg did. This research directly influenced my approach to layering in the mixed media pieces.'},
+  linocut:{title:'Lino-Cut \u2014 Freedom Series Development',date:'2024\u20132025',unit:'Sketchbook \u00b7 Printmaking Development',medium:'Lino-cut \u00b7 Styrofoam print \u00b7 Ink \u00b7 Yellow background',img:'images/11_sketchbook_linocut.jpg',themes:['Freedom & Constraint','Printmaking','Hope'],annotation:'This lino-cut development explores the theme of freedom and constraint through the image of a hand. The hand changes from an open gesture (freedom) to a clenched fist (constraint and resistance). My first word print had letters inverted by mistake \u2014 through that failure I thought of many ways to fix it, going along with my theme: sometimes while chasing freedom things are not clear. The word \u201cHOPE\u201d became the final resolved image.'},
+  eye1:{title:'Eye Theme \u2014 Development Studies',date:'2024\u20132025',unit:'Sketchbook \u00b7 Development',medium:'Mixed media \u00b7 Tissue \u00b7 Glitter glue \u00b7 Paint \u00b7 Collage',img:'images/17_sketchbook_eye.jpg',themes:['The Eye as Witness','Beauty','Development'],annotation:'Repetition in the background is an indication of pattern. The pupil was made using glitter glue and paint \u2014 referencing how our eyes help us see the world\u2019s beauty. I used tissue to create depth; the folded tissue amplifies layering and shows movement. The layering indicates that as long as we breathe, our eyes will continue to see. There is a mix of visual texture: photographic and hand-drawn elements together.'},
+  eye2:{title:'Eye Theme \u2014 Artist Research & Drawing Practice',date:'2024\u20132025',unit:'Sketchbook \u00b7 Artist Research',medium:'Pencil drawing \u00b7 Collage \u00b7 Notes \u00b7 Thread sample',img:'images/18_sketchbook_eye2.jpg',themes:['The Eye as Witness','Artist Research','Drawing Practice'],annotation:'Tried to make the stitch effect \u2014 theme: Eye. Reference works: \u201cIn the Hand\u201d (2024) and \u201cLovers Eye II\u201d (2017). I have learned that value, balance, and scale are necessary to create a perfect form. The shading of the pupil is very difficult because of where the centre is looking. In this piece I learned that variety is key \u2014 it shows movement at the end, as if falling. This process helped me see and understand the beauty of our eyes.'}
+  ,
+artwork:{
+  title:'Mixed Media Development Page',
+  date:'2026',
+  unit:'Sketchbook · Artist Research',
+  medium:'Mixed media · Sketchbook page',
+  img:'images/19_.JPG',
+  themes:['Nature and Beauty'],
+  annotation:'This mixed media page uses strong line work in ink to outline the building and birds, giving structure and definition. Bright warm colour in the sky contrasts with the cooler tones below, adding intensity and mood. Darker shading on the cat and building creates depth against the lighter background. Newspaper collage adds texture, especially where the paper edges are torn or burned. The right side of the spread shows a detailed tree drawn in ink with watercolour, exploring organic branching structure. Together the two sides contrast the urban environment with the natural world.'
+},
+artwork2:{
+  title:'Leaf of Worlds Final Plan',
+  date:'2026',
+  unit:'Sketchbook · Artist Research',
+  medium:'Mixed media · Sketchbook page',
+  img:'images/20_.JPG',
+  themes:['Nature'],
+  annotation:'This is the final plan for the Leaf of Worlds piece. The leaf is divided into sections, each labelled with a different material and technique: newspaper collage, oil pastel, watercolour and acrylic paint, lino cut and print, burn effect, and layered tissue. Organic circles represent natural shapes. The mountain section uses cardboard for texture. The stem detail sketch shows rolled cardboard with charcoal for a rough, natural feel. This page maps out exactly how the final piece would be constructed, section by section.'
+},
+artwork3:{
+  title:'Eye Theme — Artist Research',
+  date:'2024–2026',
+  unit:'Sketchbook · Artist Research',
+  medium:'Mixed media · Sketchbook page',
+  img:'images/07_sketchbook_birds.JPG',
+  themes:['The Eye as Witness','Artist Research'],
+  annotation:'Add your notes here.'
+}
+};
+
+function openWork(k){
+  const d=WORKS[k]; if(!d)return;
+  document.getElementById('lb-img').src=d.img;
+  document.getElementById('lb-title').textContent=d.title;
+  document.getElementById('lb-date').textContent=d.date;
+  document.getElementById('lb-unit').textContent=d.unit||'';
+  document.getElementById('lb-medium').textContent=d.medium;
+  document.getElementById('lb-annotation').textContent=d.annotation;
+  const th=document.getElementById('lb-themes'); th.innerHTML='';
+  (d.themes||[]).forEach(t=>{const c=document.createElement('span');c.className='lb-theme-chip';c.textContent=t;th.appendChild(c);});
+  zoomReset();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';zoomReset();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLightbox();});
+
+// ZOOM & PAN
+let lbScale=1,lbPanX=0,lbPanY=0,lbDrag=false,lbDS={x:0,y:0},lbPS={x:0,y:0};
+const lbW=document.getElementById('lb-zoom-wrap');
+function applyT(){lbW.style.transform='scale('+lbScale+') translate('+(lbPanX/lbScale)+'px,'+(lbPanY/lbScale)+'px)';}
+function zoomBy(d){lbScale=Math.max(1,Math.min(5,lbScale+d));if(lbScale===1){lbPanX=0;lbPanY=0;}applyT();}
+function zoomReset(){lbScale=1;lbPanX=0;lbPanY=0;applyT();}
+document.querySelector('.lb-img-pane').addEventListener('wheel',e=>{e.preventDefault();zoomBy(e.deltaY<0?.2:-.2);},{passive:false});
+lbW.addEventListener('mousedown',e=>{if(lbScale<=1)return;lbDrag=true;lbW.classList.add('grabbing');lbDS={x:e.clientX,y:e.clientY};lbPS={x:lbPanX,y:lbPanY};});
+document.addEventListener('mousemove',e=>{if(!lbDrag)return;lbPanX=lbPS.x+(e.clientX-lbDS.x);lbPanY=lbPS.y+(e.clientY-lbDS.y);applyT();});
+document.addEventListener('mouseup',()=>{lbDrag=false;lbW.classList.remove('grabbing');});
+let lbLD=0;
+document.querySelector('.lb-img-pane').addEventListener('touchmove',e=>{if(e.touches.length===2){e.preventDefault();const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY,d=Math.sqrt(dx*dx+dy*dy);if(lbLD)zoomBy((d-lbLD)*.01);lbLD=d;}},{passive:false});
+document.querySelector('.lb-img-pane').addEventListener('touchend',()=>{lbLD=0;});
+
+// FLIP-IN
+const fobs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){const el=en.target,i=Array.from(el.parentNode.children).indexOf(el);setTimeout(()=>{el.classList.add('flip-visible');el.style.opacity='1';},i*90);fobs.unobserve(el);}});},{threshold:.15});
+document.querySelectorAll('.sketch-item').forEach(el=>fobs.observe(el));
+
+// SPLIT SLIDER
+(function(){const w=document.getElementById('split-view'),c=document.getElementById('split-clip'),h=document.getElementById('split-handle');let d=false;function sp(px){const r=w.getBoundingClientRect(),p=Math.max(5,Math.min(95,(px-r.left)/r.width*100));h.style.left=p+'%';c.style.width=(100-p)+'%';}h.addEventListener('mousedown',()=>d=true);h.addEventListener('touchstart',()=>d=true,{passive:true});document.addEventListener('mouseup',()=>d=false);document.addEventListener('touchend',()=>d=false);document.addEventListener('mousemove',e=>{if(d)sp(e.clientX);});document.addEventListener('touchmove',e=>{if(d)sp(e.touches[0].clientX);},{passive:true});})();
+
+// ATMOSPHERE
+const ATM=[{cls:'atm-gallery',icon:'\uD83D\uDDBC',label:'Gallery'},{cls:'atm-studio',icon:'\uD83D\uDD6F',label:'Studio'},{cls:'atm-midnight',icon:'\uD83C\uDF11',label:'Midnight'}];
+let ai=0;
+function cycleAtmosphere(){document.body.classList.remove(ATM[ai].cls);ai=(ai+1)%ATM.length;document.body.classList.add(ATM[ai].cls);document.getElementById('atm-icon').textContent=ATM[ai].icon;document.getElementById('atm-label').textContent=ATM[ai].label;}
+</script>
+<script src="script.js"></script>
+</body>
+</html>
